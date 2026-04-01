@@ -75,10 +75,11 @@ int main(void)
 		pos.y += dy;
 
 		if (set_ball_position(pos.x, pos.y) == -1) {
-			perror("ioctl(VGA_BALL_WRITE_POSITION) failed");
-			close(vga_ball_fd);
-			return 1;
-		}
+            printf("bad pos=(%u,%u)\n", pos.x, pos.y);
+            perror("ioctl(VGA_BALL_WRITE_POSITION) failed");
+            close(vga_ball_fd);
+            return 1;
+        }
 
 		usleep(FRAME_DELAY_US);
 	}
