@@ -1,0 +1,26 @@
+VGA ball Linux driver and userspace demo
+
+This software package now matches a position-controlled VGA ball peripheral.
+
+Register map expected by the hardware:
+- offset 0: ball_x[7:0]
+- offset 1: ball_x[9:8] in bits [1:0]
+- offset 2: ball_y[7:0]
+- offset 3: ball_y[9:8] in bits [1:0]
+
+Userspace interface:
+- `VGA_BALL_WRITE_POSITION` writes the ball center `(x, y)`
+- `VGA_BALL_READ_POSITION` reads back the last programmed center `(x, y)`
+
+Build:
+- `make`
+
+Run on the target board:
+- `insmod vga_ball.ko`
+- `./hello`
+- `rmmod vga_ball`
+
+Notes for the hardware portion of the lab:
+- Update `vga_ball.sv` so it implements the register map above.
+- Latch the programmed coordinates only during non-visible video time to avoid tearing.
+- Record the Slow 1100 mV, 85 C conservative `Fmax` from Quartus and confirm it is above 50 MHz.
